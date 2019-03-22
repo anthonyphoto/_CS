@@ -16,15 +16,69 @@ function isPalindrome(str) {
 
 // Write an algorithm to group a list of words into anagrams. For example, if the input was ['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race'], the output should be: [['east', 'teas', 'eats'], ['cars', 'arcs'], ['acre', 'race']].
 
+// function sortString(str){
+//     var arr = str.split('');
+//     var tmp;
+//     for(var i = 0; i < arr.length; i++){
+//       for(var j = i + 1; j < arr.length; j++){
+//         /* if ASCII code greater then swap the elements position*/
+//         if(arr[i] > arr[j]){
+//           tmp = arr[i];
+//           arr[i] = arr[j];
+//           arr[j] = tmp;
+//         }
+//       }
+//     }
+//     return arr.join('');
+//   }
+
+/* my solution o(n^2) */
+function sortString(str){
+    var arr = str.split('');
+    var sorted = arr.sort();
+    return sorted.join('');
+  }
+
 function groupByAnagrams(arr) {
+    const newArr = [];
     for (let i = 0; i < arr.length; i++) {
-        let codeSum = 0;
+        let key;
         for (let j = 0; j < arr[i].length; j++) {
-            codeSum += arr[i];
+            key = sortString(arr[i]);
         }
-        console.log(codeSum);
+
+        const found = newArr.find(item => item.key === key);
+        if (found) {
+            found.arr.push(arr[i])
+        }
+        else {
+            newArr.push({
+                key,
+                arr: [arr[i]]
+            })
+        } 
+
+        console.log('--------------');
+        console.log(newArr);
     }
 
-} 
+    return newArr.map(item => item.arr);
 
-console.log(groupByAnagrams(['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']));
+} 
+/* o(n) solution */ 
+/* make use of mutable objects to create a one-pass */
+function groupByAnagrams2(arr) {
+    const ret = [], lookup = {};
+    for (let word of arr) {
+        const srt = word.split("").sort().join("");
+        if (srt in lookup) lookup[srt].push(word);
+        else ret.push(lookup[srt] = [word]);
+    }
+    return ret;
+}
+
+console.log(groupByAnagrams2(['bb', 'ac', 'east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']));
+
+
+
+
