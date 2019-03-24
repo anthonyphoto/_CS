@@ -74,3 +74,14 @@ class Array {
 Array.SIZE_RATIO = 3;
 
 
+const arr = new Array();
+arr.push("test");
+arr.push(1);
+// arr.push(2);
+// arr.push(3);
+// arr.push(4);
+// arr.push(5);
+
+// arr.ptr = 3;
+
+console.log(arr);
