@@ -1,3 +1,8 @@
+// array item 
+    // {   key,
+    //     value, 
+    //     deleted: false}
+
 class HashMap {
     constructor(initialCapacity=8) {
         this.length = 0;
